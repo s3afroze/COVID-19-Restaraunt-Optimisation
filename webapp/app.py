@@ -19,7 +19,7 @@ server = app.server
 # Plotly mapbox public token
 mapbox_access_token = "pk.eyJ1IjoicGxvdGx5bWFwYm94IiwiYSI6ImNqdnBvNDMyaTAxYzkzeW5ubWdpZ2VjbmMifQ.TXcBE-xg9BFdV2ocecc_7g"
 
-# Dictionary of important locations in New York
+# Dictionary of important osmow's stores
 list_of_locations = {'1 Kennedy Rd S': {'lon': -79.25569611653174, 'lat': 43.702583795662534},
  '10635 Bramalea Rd #3': {'lon': -79.72340999999994, 'lat': 43.72135000000003},
  '120 Clementine Dr #5': {'lon': -79.22881500934116, 'lat': 43.7755457634258},
@@ -88,15 +88,14 @@ list_of_locations = {'1 Kennedy Rd S': {'lon': -79.25569611653174, 'lat': 43.702
  '9750 Markham Rd': {'lon': -79.24349063017577, 'lat': 43.80948291372859}}
 
  
-
 weekdays_numbers = {0:'Monday', 1: 'Tuesday', 2:'Wednesday', 3:'Thursday', 4:'Friday', 5:'Saturday', 6:'Sunday'}
 
-df = pd.read_csv("finale_7.csv", index_col=[0])
+df = pd.read_csv("data/full_data.csv", index_col=[0])
 df["Date/Time"] = pd.to_datetime(df.index, format="%Y-%m-%d %H:%M")
 df.index = df["Date/Time"]
 df.drop("Date/Time", 1, inplace=True)
 
-demand_data = pd.read_csv("finale_6.5.csv", index_col=[0])
+demand_data = pd.read_csv("data/demand_data_week.csv", index_col=[0])
 demand_data["Date/Time"] = pd.to_datetime(demand_data.index, format="%Y-%m-%d %H:%M")
 demand_data.index = demand_data["Date/Time"]
 demand_data.drop("Date/Time", 1, inplace=True)
@@ -278,61 +277,6 @@ def update_selected_data(clickData):
         return {"points": []}
 
 
-# Update the total number of rides Tag
-# @app.callback(Output("total-rides", "children"), [Input("date-picker", "date")])
-# def update_total_rides(datePicked):
-#     date_picked = dt.strptime(datePicked, "%Y-%m-%d")
-#     return "Total Number of rides: {:,d}".format(
-#         len(totalList[date_picked.month - 4][date_picked.day - 1])
-#     )
-
-
-# Update the total number of rides in selected times
-# @app.callback(
-#     [Output("date-value", "children")],
-#     [Input("date-picker", "date"), Input("bar-selector", "value")],
-# )
-# def update_total_rides_selection(datePicked, selection):
-#     firstOutput = ""
-
-#     if selection is not None or len(selection) is not 0:
-#         date_picked = dt.strptime(datePicked, "%Y-%m-%d")
-#         totalInSelection = 0
-#         for x in selection:
-#             totalInSelection += len(
-#                 totalList[date_picked.month - 4][date_picked.day - 1][
-#                     totalList[date_picked.month - 4][date_picked.day - 1].index.hour
-#                     == int(x)
-#                 ]
-#             )
-#         firstOutput = "Total rides in selection: {:,d}".format(totalInSelection)
-
-#     if (
-#         datePicked is None
-#         or selection is None
-#         or len(selection) is 24
-#         or len(selection) is 0
-#     ):
-#         return firstOutput, (datePicked, " - showing hour(s): All")
-
-#     holder = sorted([int(x) for x in selection])
-
-#     if holder == list(range(min(holder), max(holder) + 1)):
-#         return (
-#             firstOutput,
-#             (
-#                 datePicked,
-#                 " - showing hour(s): ",
-#                 holder[0],
-#                 "-",
-#                 holder[len(holder) - 1],
-#             ),
-#         )
-
-#     holder_to_string = ", ".join(str(x) for x in holder)
-#     return firstOutput, (datePicked, " - showing hour(s): ", holder_to_string)
-
-
 # Update Histogram Figure based on Month, Day and Times Chosen
 @app.callback(
     Output("histogram", "figure"),
@@ -431,28 +375,6 @@ def getLatLonColor(selectedData, month, day):
         Input("location-dropdown", "value"),
     ],
 )
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 def update_graph(datePicked, selectedData, selectedLocation):
