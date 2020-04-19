@@ -1,7 +1,7 @@
 ### COVID 19 Restaraunt Optimisation
-This is a work in progress project
+*This is a work in progress project*
 
-Challenge:
+**Challenge:**
 The restaraunts are not operating in the the same business environment as before owing to the epidemic. There will be no walk in customers anymore and delivery services like Uber Eats will be driving nearly all of the revenue. I jumped into this research assuming that it would help restaraunt chains but missed that in reality all the major restaruant chains are owned by seperate franchisees so there is little benefit of applying optimisation and prescriptive analytics.
 
 The benefit would have included have reducing pressure on supply chain and recommendation on newer stores depending on spread of the virus in order to protect employees
